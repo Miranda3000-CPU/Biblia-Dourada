@@ -7,124 +7,134 @@
   <meta name="description" content="Bíblia Dourada — leitura bíblica e estudo versículo por versículo, offline, sem anúncios e sem coleta de dados.">
   <title>Bíblia Dourada</title>
   <link rel="icon" href="https://raw.githubusercontent.com/Miranda3000-CPU/BibliaDourada/main/docs/prints/00-icone.png">
-  <link rel="stylesheet" href="https://raw.githubusercontent.com/primer/css/main/dist/primer.css">
+  <link rel="stylesheet" href="https://raw.githubusercontent.com/primer/css/v21.0.9/dist/primer.css">
   <style>
-    :root { --gold:#d4a017; --gold-dark:#9a7410; --ink:#211d16; --paper:#fffdf7; }
-    body { background:var(--paper); color:var(--ink); }
-    .hero { background:radial-gradient(circle at 80% 20%, rgba(212,160,23,.24), transparent 35%), linear-gradient(135deg,#fffdf7 0%,#f8efd1 100%); border-bottom:1px solid #eadfbf; }
-    .gold { color:var(--gold-dark); }
-    .hero-icon { width:112px;height:112px;object-fit:cover;border-radius:28px;box-shadow:0 18px 45px rgba(89,65,10,.18); }
-    .btn-gold { background:#c99716;color:#fff;border:1px solid #a97d0e;box-shadow:0 8px 20px rgba(169,125,14,.22); }
-    .btn-gold:hover { background:#ad8211;color:#fff; }
-    .feature { height:100%; border:1px solid #e8dfc5; background:#fff; border-radius:16px; padding:24px; box-shadow:0 8px 25px rgba(54,40,8,.05); }
-    .screenshot { width:100%; max-height:520px; object-fit:cover; object-position:top; border-radius:16px; border:1px solid #e8dfc5; box-shadow:0 12px 35px rgba(54,40,8,.08); }
-    .download-card { background:#231f17;color:#fff;border-radius:22px;overflow:hidden; }
-    .download-card .muted { color:#c9c2b4; }
-    .pill { display:inline-flex;align-items:center;gap:6px;border:1px solid #e1d4ad;background:#fff8df;border-radius:999px;padding:5px 11px;font-size:12px;font-weight:600; }
-    .section { padding:72px 0; }
-    .divider { border-top:1px solid #e8dfc5; }
-    footer a { color:inherit; }
-    @media (max-width: 544px) { .section{padding:52px 0}.hero-icon{width:92px;height:92px} }
+    :root{
+      --gold:#c99716;--gold-dark:#8d6910;--ink:#211d16;--muted:#6b6254;
+      --paper:#fffdf7;--card:#fff;--line:#e8dfc5;--dark:#231f17;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    a{text-decoration:none}
+    .site-container{width:min(1120px,calc(100% - 32px));margin:0 auto}
+    .hero{background:radial-gradient(circle at 80% 20%,rgba(212,160,23,.24),transparent 35%),linear-gradient(135deg,#fffdf7,#f8efd1);border-bottom:1px solid var(--line)}
+    .hero-inner{padding:72px 0}
+    .hero-content{display:flex;align-items:center;gap:36px}
+    .hero-icon{width:116px;height:116px;object-fit:cover;border-radius:28px;box-shadow:0 18px 45px rgba(89,65,10,.18);flex:none}
+    .eyebrow{display:inline-block;color:var(--gold-dark);background:#fff8df;border:1px solid #e1d4ad;border-radius:999px;padding:6px 12px;font-size:12px;font-weight:700;margin-bottom:14px}
+    h1{font-size:clamp(42px,7vw,68px);line-height:1.02;margin:0 0 14px;letter-spacing:-2px}
+    h2{font-size:clamp(28px,4vw,40px);line-height:1.1;margin:0 0 14px;letter-spacing:-.8px}
+    h3{font-size:20px;margin:0 0 10px}
+    .gold{color:var(--gold-dark)}
+    .lead{font-size:22px;color:#5f574a;margin:0 0 10px}
+    .description{font-size:16px;margin:0 0 24px}
+    .actions{display:flex;flex-wrap:wrap;gap:10px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 18px;border-radius:8px;border:1px solid #d0c7b5;background:#fff;color:var(--ink);font-weight:700}
+    .btn:hover{filter:brightness(.97)}
+    .btn-gold{background:var(--gold);border-color:#a97d0e;color:#fff;box-shadow:0 8px 20px rgba(169,125,14,.22)}
+    .status{font-size:13px;color:var(--muted);margin:12px 0 0}
+    .section{padding:76px 0}
+    .section-head{max-width:760px;margin:0 auto 42px;text-align:center}
+    .section-label{color:var(--gold-dark);font-weight:800;text-transform:uppercase;font-size:13px;letter-spacing:.08em;margin:0 0 10px}
+    .muted{color:var(--muted)}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .feature{height:100%;border:1px solid var(--line);background:var(--card);border-radius:16px;padding:25px;box-shadow:0 8px 25px rgba(54,40,8,.05)}
+    .feature-icon{font-size:30px;margin-bottom:14px}
+    .feature p{color:var(--muted);line-height:1.6;margin:0}
+    .showcase{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#fff}
+    .showcase-inner{display:grid;grid-template-columns:.8fr 1.2fr;gap:50px;align-items:center}
+    .screenshot{display:block;width:100%;max-height:600px;object-fit:contain;object-position:center;border-radius:18px;border:1px solid var(--line);box-shadow:0 12px 35px rgba(54,40,8,.08);background:#f6f1e4}
+    .download-card{background:var(--dark);color:#fff;border-radius:22px;padding:52px;text-align:center}
+    .download-card p{color:#c9c2b4}
+    footer{border-top:1px solid var(--line);padding:28px 0}
+    .footer-inner{display:flex;justify-content:space-between;gap:20px;align-items:center}
+    .footer-links{display:flex;gap:20px;flex-wrap:wrap}
+    .footer-links a{color:var(--ink)}
+    @media(max-width:800px){
+      .hero-inner{padding:52px 0}.hero-content{flex-direction:column;text-align:center}.actions{justify-content:center}
+      .grid{grid-template-columns:repeat(2,1fr)}.showcase-inner{grid-template-columns:1fr;gap:30px}.showcase-copy{text-align:center}
+    }
+    @media(max-width:540px){
+      .site-container{width:min(100% - 24px,1120px)}.section{padding:54px 0}.hero-icon{width:92px;height:92px}
+      .grid{grid-template-columns:1fr}.download-card{padding:34px 20px}.footer-inner{flex-direction:column;text-align:center}
+      .footer-links{justify-content:center}
+    }
   </style>
 </head>
 <body>
-  <header class="hero">
-    <div class="container-xl p-responsive py-8 py-md-9">
-      <div class="d-flex flex-column flex-md-row flex-items-center gap-4">
-        <img class="hero-icon" src="https://raw.githubusercontent.com/Miranda3000-CPU/BibliaDourada/main/docs/prints/00-icone.png" alt="Ícone da Bíblia Dourada">
-        <div class="flex-1 text-center text-md-left">
-          <span class="pill mb-2">Android 24+ · Kotlin · Jetpack Compose</span>
-          <h1 class="h00-mktg mb-2">Bíblia <span class="gold">Dourada</span></h1>
-          <p class="f2 color-fg-muted mb-4">Leitura bíblica e estudo versículo por versículo.</p>
-          <p class="f4 mb-4">Offline, sem anúncios, sem login e sem coleta de dados.</p>
-          <div class="d-flex flex-wrap flex-justify-center flex-md-justify-start gap-2">
-            <a id="downloadButton" class="btn-gold Button Button--large text-bold" href="https://github.com/Miranda3000-CPU/BibliaDourada/releases" target="_blank" rel="noopener">Baixar o aplicativo</a>
-            <a class="Button Button--large" href="https://github.com/Miranda3000-CPU/BibliaDourada" target="_blank" rel="noopener">Ver código no GitHub</a>
-          </div>
-          <p id="releaseStatus" class="f6 color-fg-muted mt-3 mb-0">Verificando a versão disponível...</p>
+<header class="hero">
+  <div class="site-container hero-inner">
+    <div class="hero-content">
+      <img class="hero-icon" src="https://raw.githubusercontent.com/Miranda3000-CPU/BibliaDourada/main/docs/prints/00-icone.png" alt="Ícone da Bíblia Dourada">
+      <div>
+        <span class="eyebrow">Android 24+ · Kotlin · Jetpack Compose</span>
+        <h1>Bíblia <span class="gold">Dourada</span></h1>
+        <p class="lead">Leitura bíblica e estudo versículo por versículo.</p>
+        <p class="description">Offline, sem anúncios, sem login e sem coleta de dados.</p>
+        <div class="actions">
+          <a id="downloadButton" class="btn btn-gold" href="downloads/Biblia-Dourada.apk">Baixar o aplicativo</a>
+          <a class="btn" href="https://github.com/Miranda3000-CPU/BibliaDourada" target="_blank" rel="noopener">Ver código no GitHub</a>
         </div>
+        <p id="releaseStatus" class="status">APK disponibilizado pelo projeto.</p>
       </div>
     </div>
-  </header>
+  </div>
+</header>
 
-  <main>
-    <section class="section">
-      <div class="container-xl p-responsive">
-        <div class="col-md-9 mx-auto text-center mb-6">
-          <p class="h4 gold text-uppercase">Um aplicativo simples e privado</p>
-          <h2 class="h1 mb-3">Sua leitura da Bíblia, no seu aparelho</h2>
-          <p class="f4 color-fg-muted">O processamento acontece localmente. O aplicativo foi pensado para leitura, busca e estudo sem depender de uma conta ou de serviços de rastreamento.</p>
-        </div>
-        <div class="d-grid grid-cols-1 grid-cols-md-2 grid-cols-lg-3 gap-3">
-          <article class="feature"><div class="f2 mb-2">📖</div><h3 class="h3">Leitura</h3><p class="color-fg-muted mb-0">Versículos numerados, ajuste de fonte, navegação por capítulo e seleção rápida de livro.</p></article>
-          <article class="feature"><div class="f2 mb-2">🔎</div><h3 class="h3">Busca rápida</h3><p class="color-fg-muted mb-0">Pesquisa em texto completo com normalização de acentos e filtros por versículos e estudos.</p></article>
-          <article class="feature"><div class="f2 mb-2">✦</div><h3 class="h3">Estudo</h3><p class="color-fg-muted mb-0">Acesse as anotações associadas a cada versículo, quando os dados de estudo estiverem disponíveis no aparelho.</p></article>
-          <article class="feature"><div class="f2 mb-2">🌙</div><h3 class="h3">Tema claro e escuro</h3><p class="color-fg-muted mb-0">Paleta dourada com preferência de tema preservada entre as sessões.</p></article>
-          <article class="feature"><div class="f2 mb-2">📦</div><h3 class="h3">Importação local</h3><p class="color-fg-muted mb-0">Importe um banco .db ou mescle anotações .json a partir de um arquivo escolhido por você.</p></article>
-          <article class="feature"><div class="f2 mb-2">🔒</div><h3 class="h3">Privacidade</h3><p class="color-fg-muted mb-0">Sem login, anúncios ou rastreamento. Os dados são processados no próprio dispositivo.</p></article>
-        </div>
+<main>
+  <section class="section">
+    <div class="site-container">
+      <div class="section-head">
+        <p class="section-label">Um aplicativo simples e privado</p>
+        <h2>Sua leitura da Bíblia, no seu aparelho</h2>
+        <p class="muted">O processamento acontece localmente. O aplicativo foi pensado para leitura, busca e estudo sem depender de uma conta ou de serviços de rastreamento.</p>
       </div>
-    </section>
-
-    <section class="section divider">
-      <div class="container-xl p-responsive">
-        <div class="d-flex flex-column flex-md-row flex-items-center gap-5">
-          <div class="col-md-5 text-center text-md-left">
-            <p class="h4 gold">Interface</p>
-            <h2 class="h1 mb-3">Feita para leitura confortável</h2>
-            <p class="f4 color-fg-muted">Uma interface direta, com foco no texto bíblico e nos recursos de estudo.</p>
-          </div>
-          <div class="col-md-7">
-            <img class="screenshot" src="https://raw.githubusercontent.com/Miranda3000-CPU/BibliaDourada/main/docs/prints/03-leitura.png" alt="Tela de leitura da Bíblia Dourada" loading="lazy">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container-xl p-responsive">
-        <div class="download-card p-5 p-md-6 text-center">
-          <p class="f4 mb-2">📱 Android</p>
-          <h2 class="h1 color-fg-on-emphasis mb-3">Baixe a Bíblia Dourada</h2>
-          <p class="f4 muted mb-4">A página consulta automaticamente as releases públicas do projeto. Quando um APK estiver publicado, o botão principal apontará para ele.</p>
-          <a id="downloadButtonBottom" class="btn-gold Button Button--large text-bold" href="https://github.com/Miranda3000-CPU/BibliaDourada/releases" target="_blank" rel="noopener">Abrir downloads</a>
-          <p class="f6 muted mt-3 mb-0">Código-fonte: Miranda3000-CPU/BibliaDourada</p>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="border-top py-5">
-    <div class="container-xl p-responsive d-flex flex-column flex-md-row flex-justify-between gap-3">
-      <div><strong>Bíblia Dourada</strong><br><span class="color-fg-muted f6">Desenvolvido por Jeiel Miranda.</span></div>
-      <div class="d-flex flex-wrap gap-3 f6">
-        <a href="https://github.com/Miranda3000-CPU/BibliaDourada" target="_blank" rel="noopener">Projeto</a>
-        <a href="https://github.com/Miranda3000-CPU/BibliaDourada/blob/main/README.md" target="_blank" rel="noopener">Documentação</a>
-        <a href="https://jeielmiranda.com.br" target="_blank" rel="noopener">jeielmiranda.com.br</a>
+      <div class="grid">
+        <article class="feature"><div class="feature-icon">📖</div><h3>Leitura</h3><p>Versículos numerados, ajuste de fonte, navegação por capítulo e seleção rápida de livro.</p></article>
+        <article class="feature"><div class="feature-icon">🔎</div><h3>Busca rápida</h3><p>Pesquisa em texto completo com normalização de acentos e filtros por versículos e estudos.</p></article>
+        <article class="feature"><div class="feature-icon">✦</div><h3>Estudo</h3><p>Acesse as anotações associadas a cada versículo quando os dados de estudo estiverem disponíveis no aparelho.</p></article>
+        <article class="feature"><div class="feature-icon">🌙</div><h3>Tema claro e escuro</h3><p>Paleta dourada com preferência de tema preservada entre as sessões.</p></article>
+        <article class="feature"><div class="feature-icon">📦</div><h3>Importação local</h3><p>Importe um banco .db ou mescle anotações .json a partir de um arquivo escolhido por você.</p></article>
+        <article class="feature"><div class="feature-icon">🔒</div><h3>Privacidade</h3><p>Sem login, anúncios ou rastreamento. Os dados são processados no próprio dispositivo.</p></article>
       </div>
     </div>
-  </footer>
+  </section>
 
-  <script>
-    const repo = 'Miranda3000-CPU/BibliaDourada';
-    const releasesUrl = `https://api.github.com/repos/${repo}/releases/latest`;
-    const status = document.getElementById('releaseStatus');
-    const top = document.getElementById('downloadButton');
-    const bottom = document.getElementById('downloadButtonBottom');
+  <section class="section showcase">
+    <div class="site-container showcase-inner">
+      <div class="showcase-copy">
+        <p class="section-label">Interface</p>
+        <h2>Feita para leitura confortável</h2>
+        <p class="muted">Uma interface direta, com foco no texto bíblico e nos recursos de estudo.</p>
+      </div>
+      <div>
+        <img class="screenshot" src="https://raw.githubusercontent.com/Miranda3000-CPU/BibliaDourada/main/docs/prints/03-leitura.png" alt="Tela de leitura da Bíblia Dourada" loading="lazy">
+      </div>
+    </div>
+  </section>
 
-    fetch(releasesUrl, { headers: { Accept: 'application/vnd.github+json' } })
-      .then(r => { if (!r.ok) throw new Error('Sem release'); return r.json(); })
-      .then(release => {
-        const apk = (release.assets || []).find(a => a.name.toLowerCase().endsWith('.apk'));
-        const url = apk ? apk.browser_download_url : release.html_url;
-        top.href = url; bottom.href = url;
-        status.textContent = apk ? `Última versão: ${release.tag_name} · APK disponível` : `Última versão: ${release.tag_name} · abrir release`;
-      })
-      .catch(() => {
-        top.href = `https://github.com/${repo}/releases`;
-        bottom.href = `https://github.com/${repo}/releases`;
-        status.textContent = 'Nenhuma release pública com APK encontrada no momento.';
-      });
-  </script>
+  <section class="section">
+    <div class="site-container">
+      <div class="download-card">
+        <p>📱 Android</p>
+        <h2>Baixe a Bíblia Dourada</h2>
+        <p>O APK é publicado automaticamente pelo workflow do projeto e disponibilizado nesta página.</p>
+        <a id="downloadButtonBottom" class="btn btn-gold" href="downloads/Biblia-Dourada.apk">Baixar APK</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="site-container footer-inner">
+    <div><strong>Bíblia Dourada</strong><br><span class="muted">Desenvolvido por Jeiel Miranda.</span></div>
+    <nav class="footer-links">
+      <a href="https://github.com/Miranda3000-CPU/BibliaDourada" target="_blank" rel="noopener">Projeto</a>
+      <a href="https://github.com/Miranda3000-CPU/BibliaDourada/blob/main/README.md" target="_blank" rel="noopener">Documentação</a>
+      <a href="https://jeielmiranda.com.br" target="_blank" rel="noopener">jeielmiranda.com.br</a>
+    </nav>
+  </div>
+</footer>
 </body>
 </html>
