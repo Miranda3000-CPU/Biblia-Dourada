@@ -1,0 +1,3 @@
+Variante: Debug
+Assinatura: APK assinado pelo Android Gradle Plugin
+Certificado SHA-256: 
