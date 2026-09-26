@@ -45,7 +45,7 @@
     .feature p{color:var(--muted);line-height:1.6;margin:0}
     .showcase{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#fff}
     .showcase-inner{display:grid;grid-template-columns:.8fr 1.2fr;gap:50px;align-items:center}
-    .screenshot{display:block;width:100%;max-height:600px;object-fit:contain;object-position:center;border-radius:18px;border:1px solid var(--line);box-shadow:0 12px 35px rgba(54,40,8,.08);background:#f6f1e4}
+    .phone-frame{width:min(330px,82vw);margin:auto;padding:12px;border:7px solid #171512;border-radius:38px;background:#171512;box-shadow:0 22px 50px rgba(40,30,8,.18);position:relative}.phone-frame:before{content:"";position:absolute;top:7px;left:50%;transform:translateX(-50%);width:86px;height:18px;border-radius:0 0 12px 12px;background:#171512;z-index:2}.screenshot{display:block;width:100%;height:auto;max-height:640px;object-fit:cover;border-radius:27px;background:#f6f1e4}
     .download-card{background:var(--dark);color:#fff;border-radius:22px;padding:52px;text-align:center}
     .download-meta{margin-top:16px;font-size:11px;color:#a9a196;line-height:1.6}
     .download-meta code{font-size:10px;word-break:break-all}
@@ -121,7 +121,7 @@
         <p class="muted">Uma interface direta, com foco no texto bíblico e nos recursos de estudo.</p>
       </div>
       <div>
-        <img class="screenshot" src="https://raw.githubusercontent.com/Miranda3000-CPU/BibliaDourada/main/docs/prints/03-leitura.png" alt="Tela de leitura da Bíblia Dourada" loading="lazy">
+        <div class="phone-frame"><img class="screenshot" src="https://raw.githubusercontent.com/Miranda3000-CPU/BibliaDourada/main/docs/prints/03-leitura.png" alt="Tela de leitura da Bíblia Dourada" loading="lazy"></div>
       </div>
     </div>
   </section>
