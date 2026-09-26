@@ -8,6 +8,7 @@
   <title>Bíblia Dourada</title>
   <link rel="icon" href="https://raw.githubusercontent.com/Miranda3000-CPU/BibliaDourada/main/docs/prints/00-icone.png">
   <link rel="stylesheet" href="https://raw.githubusercontent.com/primer/css/v21.0.9/dist/primer.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   <style>
     :root{
       --gold:#c99716;--gold-dark:#8d6910;--ink:#211d16;--muted:#6b6254;
@@ -46,6 +47,17 @@
     .showcase-inner{display:grid;grid-template-columns:.8fr 1.2fr;gap:50px;align-items:center}
     .screenshot{display:block;width:100%;max-height:600px;object-fit:contain;object-position:center;border-radius:18px;border:1px solid var(--line);box-shadow:0 12px 35px rgba(54,40,8,.08);background:#f6f1e4}
     .download-card{background:var(--dark);color:#fff;border-radius:22px;padding:52px;text-align:center}
+    .download-meta{margin-top:16px;font-size:11px;color:#a9a196;line-height:1.6}
+    .download-meta code{font-size:10px;word-break:break-all}
+    .trust-badge{display:inline-flex;align-items:center;gap:7px;margin-top:12px;padding:5px 9px;border:1px solid rgba(255,255,255,.18);border-radius:999px;font-size:10px;color:#c9c2b4}
+    .modal-backdrop{position:fixed;inset:0;background:rgba(20,16,10,.62);display:none;align-items:center;justify-content:center;padding:18px;z-index:1000}
+    .modal-backdrop.is-open{display:flex}
+    .install-modal{width:min(560px,100%);max-height:90vh;overflow:auto;background:#fffdf7;border-radius:20px;box-shadow:0 24px 80px rgba(0,0,0,.28);padding:28px;color:var(--ink)}
+    .install-modal h2{font-size:28px;margin:0 0 8px}
+    .install-modal .modal-icon{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;background:#fff1bd;color:var(--gold-dark);font-size:21px;margin-bottom:16px}
+    .install-modal ol{padding-left:22px;line-height:1.65}.install-modal li{margin:7px 0}
+    .install-modal .notice{padding:12px 14px;background:#fff8df;border:1px solid #ead9a7;border-radius:12px;font-size:13px;line-height:1.55}
+    .modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:20px}
     .download-card p{color:#c9c2b4}
     footer{border-top:1px solid var(--line);padding:28px 0}
     .footer-inner{display:flex;justify-content:space-between;gap:20px;align-items:center}
@@ -121,10 +133,29 @@
         <h2>Baixe a Bíblia Dourada</h2>
         <p>O APK é publicado automaticamente pelo workflow do projeto e disponibilizado nesta página.</p>
         <a id="downloadButtonBottom" class="btn btn-gold" href="downloads/Biblia-Dourada.apk">Baixar APK</a>
+        <div class="trust-badge"><i class="fa-solid fa-shield-halved"></i> arquivo verificado · build debug</div>
+        <div class="download-meta" id="checksumInfo">Integridade SHA-256: carregando…</div>
       </div>
     </div>
   </section>
 </main>
+
+  <div class="modal-backdrop" id="installModal" role="dialog" aria-modal="true" aria-labelledby="installTitle">
+    <div class="install-modal">
+      <div class="modal-icon"><i class="fa-brands fa-android"></i></div>
+      <h2 id="installTitle">Como instalar no Android</h2>
+      <p class="muted">O Bíblia Dourada é distribuído diretamente pelo site, fora da Google Play. O APK publicado aqui é gerado automaticamente pelo projeto e a página exibe o SHA-256 para conferência da integridade.</p>
+      <ol>
+        <li>Baixe o APK e abra o arquivo pelo navegador ou pelo aplicativo de arquivos.</li>
+        <li>Se o Android pedir permissão, permita <strong>Instalar apps desconhecidos</strong> somente para o navegador ou gerenciador de arquivos que você está usando.</li>
+        <li>Confirme a instalação.</li>
+        <li>Depois da instalação, você pode remover essa permissão nas configurações do Android.</li>
+      </ol>
+      <div class="notice"><strong>Sobre a segurança:</strong> este APK é um <strong>build debug assinado pelo Android Gradle Plugin</strong>, adequado para testes e distribuição direta, mas não é uma versão de produção da Google Play. O Android pode mostrar avisos para aplicativos instalados fora da Play Store. Não recomendamos desativar o Play Protect globalmente; se ele impedir a instalação, verifique primeiro a origem do arquivo e o checksum exibido nesta página.</div>
+      <div class="notice" style="margin-top:10px">Se o Android bloquear a instalação por “fonte desconhecida”, habilite a permissão apenas para o app que abriu o arquivo. Não habilite instalação desconhecida para aplicativos que você não reconhece.</div>
+      <div class="modal-actions"><button class="btn" id="closeModal" type="button">Voltar</button><a class="btn btn-gold" href="downloads/Biblia-Dourada.apk">Baixar APK</a></div>
+    </div>
+  </div>
 
 <footer>
   <div class="site-container footer-inner">
@@ -136,5 +167,19 @@
     </nav>
   </div>
 </footer>
+<script>
+  const modal=document.getElementById('installModal');
+  const closeModal=()=>modal.classList.remove('is-open');
+  document.querySelectorAll('#downloadButton,#downloadButtonBottom').forEach(btn=>{
+    btn.addEventListener('click',e=>{e.preventDefault();modal.classList.add('is-open');});
+  });
+  document.getElementById('closeModal').addEventListener('click',closeModal);
+  modal.addEventListener('click',e=>{if(e.target===modal)closeModal();});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+  fetch('downloads/APK-SHA256.txt',{cache:'no-store'})
+    .then(r=>{if(!r.ok)throw new Error();return r.text();})
+    .then(t=>document.getElementById('checksumInfo').textContent='SHA-256: '+t.replace(/^SHA-256:\s*/,'').trim())
+    .catch(()=>document.getElementById('checksumInfo').textContent='SHA-256 será exibido após a próxima publicação do APK.');
+</script>
 </body>
 </html>
